@@ -1,0 +1,117 @@
+\section{Problem 1.}
+\begin{enumerate}[(a)]
+\item Let \( a = ( a_1, a_2, ..., a_k ) \in \FF_q^k \) be a vector, \( f : \FF_q^k \to \FF_q \) be a function defined as:
+\[
+    f_a ( x_1, ..., x_k ) = \sum_{ i = 1 }^k a_i x_i
+\]
+Show that each element of \( \FF_q \) is the image of exactly \( q^{ k - 1 } \) vectors in \( \FF_q^k \) under the mapping of \( f \).
+\begin{solution}
+Denote the preimage of an arbitrary vector \( b \in \FF_q^k \) as:
+\[
+    \inv{f}( v ) :=
+    \pair{ x_i \in \FF_q
+    \mid \sum_{ i = 1 }^k a_i x_i = v }
+\]
+Assume the number of solution with fixing the first \( k \) coordinates is \( S_k \), the total number of solution is \( S_0 \), we have the iteration equation:
+\[
+    S_0 = q S_1
+\]
+As the same, we have:
+\[
+    S_i = q S_{ i + 1 }
+\]
+until \( S_k = 1 \). As a result, the number of solution is exactly:
+\[
+    S_0 = \underbrace{ q \cdot q \cdot \cdots \cdot q }_{ k + 1 } \cdot 1 = q^{ k - 1 }
+\]
+
+\end{solution}
+
+\item Let \( C \) be a \( ( n, k, d ) \) code over \( \FF_q \) and let \( T \) be a \( q^k \times n \) matrix whose rows are codewords of \( C \). Show that each nonzero elements of \( \FF_q \) appears in every nonzero column in \( T \) exactly \( q^{ k - 1 } \) times.
+\begin{proof}
+    Assume \( x \in \FF_q \) be an element, we prove it by contradiction. If there exist some column who has the number of element \( x \) less than \( q^{ k - 1 } \), as there are totally \( q^{ k } \) rows, there must exist some element \( x' \in \FF_q \) such that it occurs at more than \( q^{k - 1} \) rows. As the rows are codewords of \( C \), we know that such rows containing \( x' \) should be different. As there are \( k - 1 \) coordinates and \( q \) elements for each position, there are at most \( q^{ k - 1 } \) different vectors. As a result, we know that there must be some repeating codewords, which is contradict to the hypothesis. By the contradiction, we get the result that there number cannot be strict less or greater than \( q^{ k - 1 } \).
+\end{proof}
+
+\end{enumerate}
+
+\section{Uniformly Random Parity-Check Matrix}
+Let \( R \in ( 0, 1 ) \), \( k = \floor{ R n } \), and \( r = n - k \). Choose a matrix \( H \in \FF_q^{ r \times n } \) uniformly at random, and define \( C \) to be the code having \( H \) as its parity-check matrix, i.e.:
+\[
+    C := \pair{
+        x \in \FF_q^n 
+        \mid 
+        H x^T = 0
+    }
+\]
+Prove that for every fixed \( \delta \) satisfying that \( H( \delta ) < 1 - R \), with high probability \( H \) has rank \( r \) and:
+\[
+    d( C ) > \delta n
+\]
+\begin{proof}
+\begin{enumerate} 
+\item \( H \) has high probability to be rank \( r \);
+
+Denote the \( r \) row vectors of \( H \) to be \( x_1, ..., x_r \), if \( H \) has no full row rank, we have:
+    \[
+        \exists c_i \sum_{ i = 1 }^{ r } 
+        c_i x_i = 0
+    \]
+    as a result, we have \( n \) equations:
+    \[
+        \forall 1 \le j \le n, \sum_{ i = 1 }^{ r }
+        c_i x_{i, j} = 0
+    \]
+    According to the question 1, we have the fact that for a given \( a = ( a_1, ..., a_n ) \in \FF_q^n \), the number of the solution to \( \sum_{ i = 1 }^n a_i x_i = 0 \) is exactly \( q^{ n - 1 } \), which means for the uniformly random generated elements, we have the probability of one equation to be zero is:
+    \[
+        \frac{ q^{ r - 1 } }{ q^r } = \frac{ 1 }{ q }
+    \]
+    So the probability of all the equations hold is:
+    \[
+        \left( \frac{1}{q} \right)^n
+    \]
+    As a result, the probability of \( H \) has rank \( r \) is \( 1 - \left( \frac{1}{q} \right)^n \).
+
+\item 
+
+
+\end{enumerate}
+\end{proof}
+
+
+\section{Minimum distance of a code}
+Let \( R \in ( 0, 1/2 ) \) and \( M = \ceil{ q^{ Rn } } \), a random q-ary \( ( n, M ) \) code over \( \Sigma \) is obtained by choosing codewords \( X_1, X_2, ..., X_M \in \Sigma^n \) independently, uniformly, and randomly. Let \( \delta(C) \) be the relative minimum distance of the random code, we write \( \inv{ H_q } \) for the inverse of \( H_q \) on the interval \( [ 0, 1 - 1/q ] \).
+\begin{enumerate}[(a)]
+\item Show that for any fixed \( \varepsilon > 0 \) with \( 1 - 2 R - \varepsilon > 0 \), with high probability we have:
+\[
+    \delta(C) \ge \inv{ H_q } ( 1 - 2 R - \varepsilon ) - o (1)
+\]
+\item Show that for any fixed \( \varepsilon > 0 \), with high probability we have:
+\[
+    \delta(C) \le \inv{ H_q } ( 1 - 2R ) + \varepsilon
+\]
+
+
+
+
+
+\end{enumerate}
+
+\section{Hamming Ball}
+Denote the volume of a Hamming Ball of radius in \( \FF_q^n \) by:
+\[
+    V_q( n, t ) := \sum_{ i = 0 }^t \begin{pmatrix}
+        n \\ 
+        i \\
+    \end{pmatrix} 
+    \cdot 
+    ( q - 1 )^i
+\]
+Let \( r = n - k \), and let \( D \) be an integer satisfying:
+\[
+    V_q( n - 1, D - 2 ) < q^r 
+\]
+Prove that one can construct a \( r \times n \) parity-check matrix \( H \) of an \( ( n, k, d ) \) linear code over \( \FF_q \) with \( d \ge D \).
+
+
+\section{Q5}
+Let \( \alpha = ( \alpha_1, \alpha_2, ..., \alpha_n ) \in \FF_q^n \) be a vector with distinct entries, and \( v \in (F^*_q)^n \), prove that for any \( 1 \le k \le n - 1 \), the dual code of \( \text{GRS}_q( \alpha, k, v ) \) \( \text{GRS}_q( \alpha, n - k, v' ) \) for some \( v' = ( v_1', v_2', ..., v_n' ) \in (\FF_q^*)^n \) 

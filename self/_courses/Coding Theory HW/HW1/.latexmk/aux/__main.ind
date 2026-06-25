@@ -1,0 +1,38 @@
+\begin{theindex}
+
+  \item  hamming distance , \hyperpage{3}
+  \item  t-error channel , \hyperpage{3}
+
+  \indexspace
+
+  \item block length, \hyperpage{2}
+  \item bound 
+    \subitem  Generalized Hamming Bound, \hyperpage{6}
+
+  \indexspace
+
+  \item code, \hyperpage{2}
+  \item code 
+    \subitem  binary code, \hyperpage{2}
+    \subitem  dimension, \hyperpage{2}
+    \subitem  perfect, \hyperpage{16}
+    \subitem  rate, \hyperpage{2}
+    \subitem  Reed-Solomon Code, \hyperpage{15}
+
+  \indexspace
+
+  \item encoding function, \hyperpage{3}
+
+  \indexspace
+
+  \item parity code, \hyperpage{2}
+
+  \indexspace
+
+  \item repeating code, \hyperpage{3}
+
+  \indexspace
+
+  \item sphere-packing bound, \hyperpage{16}
+
+\end{theindex}
