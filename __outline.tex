@@ -140,13 +140,52 @@ Let \( R \in ( 0, 1/2 ) \) and \( M = \ceil{ q^{ Rn } } \), a random q-ary \( ( 
     \delta(C) \ge \inv{ H_q } ( 1 - 2 R - \varepsilon ) - o (1)
 \]
 \begin{proof}
-It's equivalent to prove, with high probability:
-\[
-    d(C) \ge n \inv{H_q}( 1 - 2R - \varepsilon ) - o(n)
-\]
-
-
-
+    Denote \( \delta' = \inv{ H_q }( 1 - 2R - \varepsilon ) \), we firstly show that: 
+    \[
+        P[ d(C) \le n \delta'] \to 0
+    \]
+    The probability of \( d(C) \le n\delta' \) is the probability:
+    \[
+        P [ \exists c_i, c_j, c_i \neq c_j, d( c_i, c_j ) \le n\delta' ]
+        = P[ \bigcup_{ i, j } d( c_i, c_j ) \le n\delta' ]
+        \le \sum_{ i, j } P[ d( c_i, c_j ) \le n\delta' ]
+    \]
+    For arbitrary two vectors in the space, we have the probability:
+    \[
+        P[ d( c_i, c_j ) \le n\delta' ]
+        = \frac{ \Vol_q ( n, \floor{ n, n \delta' } ) }{ q^n }
+        \le q^{ n H_q( \delta' ) - o(n) - n }
+    \]
+    Thus, the probability is:
+    \[
+        P[ d(c) \le n \delta' ] 
+        \le \begin{pmatrix}
+            M \\ 
+            2 \\
+        \end{pmatrix} \cdot 
+        q^{ n( 1 - 2R - \varepsilon ) }
+        = \frac{ M ( M - 1 ) }{ 2 }
+        \cdot q^{ n ( 1 - 2R - \varepsilon ) - o(n) - n }
+        \le q^{ 2Rn + n( 1 - 2R - \varepsilon ) - o(n) - n}
+    \]
+    As \( \varepsilon \) satisfies the equation \( 1 - 2R - \varepsilon > 0 \), we have:
+    \[
+        P[ d( C ) \le n \delta' ] 
+        \le q^{ -\varepsilon n - o(n) } \to 0 
+        \quad 
+        ( n \to \infty )
+    \]
+    As a result, we have high probability that;
+    \[
+        d(C) \ge n\inv{ H_q }( 1 - 2R - \varepsilon )
+    \]
+    which implies:
+    \[
+        \delta(C) 
+        \ge \inv{H_q}( 1 - 2 R - \varepsilon )
+        \ge \inv{H_q}( 1 - 2 R - \varepsilon )
+        - o(1)
+    \]
 \end{proof}
 
 
@@ -155,8 +194,35 @@ It's equivalent to prove, with high probability:
     \delta(C) 
     \le \inv{ H_q } ( 1 - 2R ) + \varepsilon
 \]
-
-
+\begin{proof}
+    It's equivalent to check:
+    \[
+        P[ d(C) \le n \delta' ]
+    \]
+    where \( \delta' = \inv{ H_q }(1 - 2R) \). Considering that there are \( C_M^2 \) pairs of distance and each pair has probability:
+    \[
+        P[ d( c_i, c_j ) \le n\delta' ] 
+        \le q^{ nH_q(\delta') - n -o(n) }
+        \le q^{ n(1 - 2R + H_q( \varepsilon )) - n - o(n) }
+    \]
+    According to the (a), we have the probability:
+    \[ 
+        P[ d(C) \le n\delta' ] 
+        \le \begin{pmatrix}
+            M \\ 
+            2 \\
+        \end{pmatrix}
+        q^{ nH_q( \varepsilon ) -2nR }
+        \le 
+        \frac{1}{2} q^{ 2nR } q^{ nH_q( \varepsilon ) - 2nR }
+        \le 
+        q^{ nH_q( \varepsilon ) }
+    \]
+    As \( H_q( \varepsilon ) \) is a positive number, we know the bound tends to infinity with \( n \), which means we have high probability the inequality holds:
+    \[
+        \delta(C) \le \inv{ H_q }( 1 - 2R ) + \varepsilon
+    \]
+\end{proof}
 
 
 
@@ -180,6 +246,79 @@ Let \( r = n - k \), and let \( D \) be an integer satisfying:
 \]
 Prove that one can construct a \( r \times n \) parity-check matrix \( H \) of an \( ( n, k, d ) \) linear code over \( \FF_q \) with \( d \ge D \).
 
+\begin{proof}
+To provide the minimum distance \( d \ge D \); we prove for arbitrary set of less equal than \( D - 1 \) columns, it's linearly independent. To do this, we can choose the columns linearly independently; but it need to require there are enough vectors to choose. As we only require \( d \ge D \), we need at least \( D - 1 \) linearly independent columns. When we have already choose \( k \) columns, the vector has the form:
+\[
+    v = c_1 v_1 + c_2 v_2 + \cdots c_k v_k, c_i \in \FF_q
+\]
+cannot be chosen. As we only need to check until the \( D - 1 \) column, we know that there are at most \( D - 2 \) coefficients. When it has \( D - 2 \) coefficients, the most difficult case, we have the linearly dependent set to be bounded by:
+\[
+    \pair{ v \in \FF_q^{ k - 1 } \mid V_q( k - 1, D - 2 ) }
+\]
+Use the loss bound, we know that if it is strict less than the whole space, we can choose a new. We check the last column:
+\[
+    V_q( n - 1, D - 2 ) < q^r
+\]
+holds by the hypothesis. As a result, we know there are new vector we can choose, which means we finally find \( n \) vectors.
+
+
+\end{proof}
+
+
+
 
 \section{Q5}
-Let \( \alpha = ( \alpha_1, \alpha_2, ..., \alpha_n ) \in \FF_q^n \) be a vector with distinct entries, and \( v \in (F^*_q)^n \), prove that for any \( 1 \le k \le n - 1 \), the dual code of \( \text{GRS}_q( \alpha, k, v ) \) \( \text{GRS}_q( \alpha, n - k, v' ) \) for some \( v' = ( v_1', v_2', ..., v_n' ) \in (\FF_q^*)^n \) 
+Let \( \alpha = ( \alpha_1, \alpha_2, ..., \alpha_n ) \in \FF_q^n \) be a vector with distinct entries, and \( v \in (F^*_q)^n \), prove that for any \( 1 \le k \le n - 1 \), the dual code of \( \text{GRS}_q( \alpha, k, v ) \) is \( \text{GRS}_q( \alpha, n - k, v' ) \) for some \( v' = ( v_1', v_2', ..., v_n' ) \in (\FF_q^*)^n \) 
+
+\begin{proof}
+Considering that the generator matrix of \( GRS_q( \alpha, k, v ) \) code is:
+\[
+    \begin{pmatrix}
+        v_1 & v_2 & \cdots & v_n \\
+        v_1 \alpha_1 & v_2 \alpha_2 & \cdots & v_n \alpha_n \\
+        \vdots & & & \vdots \\
+        v_1 \alpha_1^{ k - 1 } & v_2 \alpha_2^{ k - 1 } & \cdots & v_n \alpha_n^{ k - 1 } \\
+    \end{pmatrix}
+\]
+Assume the \( H \) exist, it should has the generator matrix:
+\[
+    \begin{pmatrix}
+        v'_1 & v'_2 & \cdots & v'_n \\
+        v'_1 \alpha_1 & v'_2 \alpha_2 & \cdots & v'_n \alpha_n \\
+        \vdots & & & \vdots \\
+        v'_1 \alpha_1^{ n - k - 1 } & v'_2 \alpha_2^{ n - k - 1 } & \cdots & v'_n \alpha_n^{ n - k - 1 } \\
+    \end{pmatrix}
+\]
+To make them dual, we need \( GH^T = 0 \), which means:
+\[
+    ( GH^T )_{ ij } = \sum_{ k = 1 }^n v_k v'_k a_k^{ i } a_k^{ j } = \sum_{ k = 1 }^n v_k v_k' a_k^{ i + j } = 0
+\]
+Thus we have:
+\[
+    \sum_{ k = 1 }^n ( v_k v_k' ) a_k^{ l } = 0, l \in \pair{ 0, ..., n - 2 }
+\]
+We need the \( ( v_k v_k' ) \) to be a solution for the \( ( n - 1 ) \times n \) Vandermonde matrix:
+\[
+    \begin{pmatrix}
+    1 & 1 & \dots & 1 \\
+    \alpha_1 & \alpha_2 & \dots & \alpha_n \\
+    \vdots & \vdots & \ddots & \vdots \\ 
+    \alpha_1^{n-2} & \alpha_2^{n-2} & \dots & \alpha_n^{n-2} \\
+    \end{pmatrix}
+\]
+According to the knowledge of linear algebra, we know that:
+\[
+    v_k v_k' = \frac{ 1 }{ \left( \prod_{ i = 1 }^n ( x - \alpha_i ) \right)'( \alpha_k ) }
+\]
+is a solution. In above equation, we consider the \( x \) to be the variable of a polynomial and we evaluate at \( a_k \) after derivative. In conclusion, the \( H \) exists and \( v_k' \) has the expression:
+\[
+    v_k' = \frac{ 1 }{ v_k P'( \alpha_k ) },
+    \quad 
+    P(x) = \prod_{ i = 1 }^n ( x - \alpha_i )
+\]
+
+
+
+\end{proof}
+
+
